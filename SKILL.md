@@ -8,15 +8,41 @@ user_invocable: true
 
 Build a complete real-time voice AI agent that runs on the Rabbit R1 device. This skill scaffolds the agent using the official LiveKit CLI, then adds the R1-specific frontend (creation) and web/token server.
 
-## Step 1: Install the LiveKit CLI
+## Step 1: Install the LiveKit CLI and Authenticate
 
-Check if `lk` is already installed. If not, install it based on platform:
+### 1a. Install `lk` if needed
+
+Check if `lk` is already installed by running `which lk`. If not found, install it based on platform:
 
 - **macOS**: `brew install livekit-cli`
 - **Linux**: `curl -sSL https://get.livekit.io/cli | bash`
 - **Windows**: `winget install LiveKit.LiveKitCLI`
 
 Verify with `lk --version`.
+
+### 1b. Check cloud auth status
+
+After the CLI is installed, check if the user is already authenticated by running:
+
+```bash
+lk project list
+```
+
+If this command succeeds and lists projects, auth is already done — skip to Step 2.
+
+If it returns a message saying you need to auth or pick a project, you **MUST stop all work** and ask the user to authenticate. Use the AskUserQuestion tool with a message like:
+
+> LiveKit Cloud auth is required before I can continue. Please run this in another terminal:
+>
+> ```
+> lk cloud auth
+> ```
+>
+> This will open a browser to sign in (or create an account). Once you're authenticated, come back here and let me know so I can continue.
+
+**CRITICAL**: Do NOT proceed to Step 2 until the user confirms auth is complete. Do NOT attempt to run `lk cloud auth` yourself — it opens a browser and requires interactive login. Do NOT run `lk app create` without auth — it will hang waiting for credentials.
+
+After the user confirms, re-verify with `lk project list` before continuing.
 
 ## Step 2: Scaffold the Agent with `lk app create`
 
@@ -46,9 +72,13 @@ After scaffolding, customize `src/agent.py`:
 
 ## Step 3: Set Up LiveKit Credentials
 
-If the user hasn't already:
-1. `lk cloud auth` (sign up / log in to LiveKit Cloud)
-2. `lk app env -w -d .env.local` (writes credentials to the agent directory)
+Write the cloud credentials to the agent directory:
+
+```bash
+lk app env -w -d .env.local
+```
+
+(Auth was already completed in Step 1b, so this should work immediately.)
 
 ## Step 4: Add the R1 Frontend and Web Server
 
