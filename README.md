@@ -1,8 +1,8 @@
 # Rabbit R1 LiveKit Voice Agent
 
-**Talk to any AI model from your Rabbit R1.** Use GPT-4o, Claude, Gemini, Llama, or any other model as a real-time voice assistant on the R1 -- powered by [LiveKit](https://livekit.io/).
+**Talk to any AI model from your Rabbit R1.** Use GPT-5.2, Claude, Gemini, Qwen3.5, or any other model as a real-time voice assistant on the R1 powered by [LiveKit](https://livekit.io/).
 
-Pair it with [local-voice-ai](https://github.com/ShayneP/local-voice-ai) to run everything locally on your own hardware -- no cloud providers needed.
+Pair it with [local-voice-ai](https://github.com/ShayneP/local-voice-ai) to run everything locally on your own hardware w/ no cloud providers needed.
 
 ## What This Is
 
